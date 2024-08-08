@@ -37,7 +37,7 @@ class UsershowController extends Controller
         $user = User::find($id);
     
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+        return response()->json(['message' => 'User not found'], 404);
         }
         if($request->type == 'status_update') {
             $user->is_active = $request->input('is_active', $user->is_active);

@@ -29,7 +29,7 @@ const _nav = [
   },
 {
   component: CNavItem,
-     name: 'Users',
+     name: 'User',
     to: '/user',
 },
 {

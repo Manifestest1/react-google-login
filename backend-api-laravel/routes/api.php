@@ -42,7 +42,16 @@ Route::get('/showuser',[UsershowController::class,'showuser']);
 Route::get('/edit/{id}',[UsershowController::class,'edit']);
 Route::post('/update/{id}',[UsershowController::class,'update']);
 Route::get('/delete/{id}',[UsershowController::class,'delete']);
-Route::post('/login',[UserController::class,'login']);
-Route::post('/logout/{id}',[GoogleController::class,'logout']);
 
-Route::post('/logout/{id}',[GoogleController::class,'logout']);
+Route::post('/login',[UserController::class,'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [UserController::class, 'logout']);
+});
+
+// Route::post('/change-password', [UserController::class, 'changePassword'])->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/change-password', [UserController::class, 'changePassword']);
+});
+
+// Route::post('/logout/{id}',[GoogleController::class,'logout']);

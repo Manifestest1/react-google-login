@@ -1,9 +1,7 @@
 import React from 'react'
 import {
   CAvatar,
-  CBadge,
   CDropdown,
-  CDropdownDivider,
   CDropdownHeader,
   CDropdownItem,
   CDropdownMenu,
@@ -11,20 +9,34 @@ import {
 } from '@coreui/react'
 import {
   cilBell,
-  cilCreditCard,
-  cilCommentSquare,
-  cilEnvelopeOpen,
-  cilFile,
-  cilLockLocked,
   cilSettings,
-  cilTask,
-  cilUser,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const AppHeaderDropdown = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+        await axios.post('http://127.0.0.1:8000/api/logout', {}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+            }
+        });
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userId');
+        navigate('/login');
+    } catch (error) {
+        console.error('Logout failed:', error);
+        alert('Logout failed. Please try again.');
+    }
+  };
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
@@ -32,15 +44,16 @@ const AppHeaderDropdown = () => {
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
-        <CDropdownItem href="#">
+        <CDropdownItem onClick={handleLogout}>
           <CIcon icon={cilBell} className="me-2" />
           Logout
         </CDropdownItem>
-        {/* <CDropdownItem href="#">
-          <CIcon icon={cilUser} className="me-2" />
-          Profile
-        </CDropdownItem> */}
-        
+        <CDropdownItem>
+          <CIcon icon={cilSettings} className="me-2" />
+          <Link to="/ChangePassword" style={{ textDecoration: 'none', color: 'inherit' }}>
+            Settings
+          </Link>
+        </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
   )

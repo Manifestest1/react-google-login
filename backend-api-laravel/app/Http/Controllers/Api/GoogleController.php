@@ -124,9 +124,13 @@ class GoogleController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-    
-        // Retrieve the user by email
-        $user = User::where('email', $request->email)->first();
+        if(is_active==1){
+            $user = User::where('email', $request->email)->first();
+        }else{
+            return "user not valid";
+        }
+      
+       
         
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);

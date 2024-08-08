@@ -3,6 +3,7 @@ import React from 'react'
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const User = React.lazy(() => import ('./views/pages/User'))
 const About= React.lazy(() => import('./About'))
+const ChangePassword= React.lazy(() => import  ('./views/pages/login/ChangePassword'))
 const Contact= React.lazy(() => import('./Contact'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -55,10 +56,12 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/user', exact: true, name: 'User' },
+  // { path: '/user', exact: true, name: 'User' },
   { path: '/About', name: 'About', element: About },
   { path: '/Contact', name: 'Contact', element: Contact },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/user', name: 'User', element: User },
+  { path: '/ChangePassword', name: 'ChangePassword', element: ChangePassword},
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

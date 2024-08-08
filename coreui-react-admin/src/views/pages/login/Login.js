@@ -18,11 +18,13 @@ const Login = () => {
 
       const headers = {
         'Content-Type': 'application/json',
+        
       };
       const response = await axios.post('http://localhost:8000/api/login', { email, password }, { headers });
-
+        console.log(response );
       console.log(response, 'api data');
       localStorage.setItem('authToken', response.data.access_token);
+      console.log('authToken', response.data.access_token);
       localStorage.setItem('tokenExpiry', (Date.now() + (60 * 60 * 1000)).toString()); // Set token expiry time
 
       navigate('/dashboard');
